@@ -99,7 +99,6 @@
 }
 
 /* Shared interaction, navigation and theme system. */
-body[data-theme="ocean"]{--purple:#285fa8;--green:#16866f;--pale:#f3f7fc;--ink:#23364b;--muted:#63758b}
 body[data-theme="lavender"]{--purple:#3978c5;--green:#278472;--pale:#f1f6fc;--ink:#23364b;--muted:#63758b}
 body[data-theme="night"]{--purple:#72b5f3;--green:#55c9a5;--pale:#101b23;--paper:#182630;--ink:#edf5f5;--muted:#a2b2b5;--line:#2b3b44;--shadow:0 12px 36px #050b1070;background:var(--pale);color:var(--ink)}
 body[data-theme="night"] .sidebar,body[data-theme="night"] .card,body[data-theme="night"] .iconbtn,body[data-theme="night"] .settings-menu,body[data-theme="night"] .modal,body[data-theme="night"] .filters input,body[data-theme="night"] .filters select,body[data-theme="night"] .monthpick,body[data-theme="night"] .field input,body[data-theme="night"] .field select,body[data-theme="night"] .field textarea{background:#182630;color:var(--ink);border-color:var(--line)}
@@ -127,7 +126,6 @@ body[data-theme="night"] .mobile-category.tone-calm,body[data-theme="night"] .mo
 .theme-options button b{margin-left:auto;color:var(--purple);opacity:0}
 .theme-options button.selected b{opacity:1}
 .theme-swatch{width:24px;height:24px;border-radius:8px;border:1px solid #00000010}
-.ocean-swatch{background:linear-gradient(135deg,#285fa8 50%,#16866f 50%)}
 .lavender-swatch{background:linear-gradient(135deg,#3978c5 50%,#a9cdf3 50%)}
 .night-swatch{background:linear-gradient(135deg,#101b23 50%,#5ac7ad 50%)}
 .settings-logout{display:flex;align-items:center;gap:9px;width:100%;padding:11px 10px;border:0;border-top:1px solid var(--line);background:transparent;color:#bd525b;text-align:left;font-weight:700;font-size:13px}
@@ -176,6 +174,19 @@ body[data-theme="night"] .tabs button.active{background:#2a3c49;color:#91c7ff;bo
 body[data-theme="night"] .field input,body[data-theme="night"] .field select,body[data-theme="night"] .field textarea{background:#182630;color:#f2f6fa;border-color:#3a4d5b}
 body[data-theme="night"] .field input::placeholder,body[data-theme="night"] .field textarea::placeholder{color:#a7b6c0}
 body[data-theme="night"] .auth-art{background:linear-gradient(145deg,#10243f 0%,#1e4b7e 58%,#2865a1 100%)}
+
+/* Keep the theme selector legible when its selected item is highlighted. */
+body[data-theme="night"] .theme-options button{color:#d7e3ed}
+body[data-theme="night"] .theme-options button.selected{background:#294052;color:#f1f6fb;border-color:#72b5f3}
+body[data-theme="night"] .theme-options button.selected b{color:#9acbfa}
+body[data-theme="night"] .theme-options button:hover{background:#233846}
+body[data-theme="night"] .stat .bubble{background:#293c4d;color:#9ac8ed}
+body[data-theme="night"] .stat.green .bubble{background:#243e50;color:#78bee5}
+body[data-theme="night"] .stat.red .bubble{background:#493638;color:#f0a09a}
+body[data-theme="night"] .amount.income,body[data-theme="night"] .pill.income{color:#75c5ed}
+body[data-theme="night"] .amount.expense,body[data-theme="night"] .pill.expense{color:#f39a98}
+body[data-theme="night"] .pill.income{background:#203b4d}
+body[data-theme="night"] .pill.expense{background:#493638}
 
 /* Mobile palette: elegant blue accents with readable dark-mode surfaces. */
 @media(max-width:600px){
