@@ -10,6 +10,10 @@ Aplicación web responsive de control de gastos e ingresos basada en las histori
 
 No requiere MySQL ni configurar una base de datos externa. Para iniciar manualmente después de instalar dependencias, usa `npm start` y visita [http://localhost:3000](http://localhost:3000). Mantén esa terminal abierta mientras uses la aplicación.
 
+## Abrir FinControl desde un teléfono fuera de tu red
+
+Consulta la guía paso a paso en [ACCESO_DESDE_INTERNET.md](ACCESO_DESDE_INTERNET.md). Usa un túnel de Cloudflare para acceder temporalmente sin configurar el router. El Mac debe permanecer encendido y con el servidor y el túnel activos.
+
 ## Datos y seguridad
 
 - La base local se guarda en `data/fincontrol.sqlite`. Conserva ese archivo para mantener tus cuentas y movimientos; cópialo para hacer una copia de seguridad.
