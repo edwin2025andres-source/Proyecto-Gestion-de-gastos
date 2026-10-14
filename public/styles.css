@@ -99,9 +99,9 @@
 }
 
 /* Shared interaction, navigation and theme system. */
-body[data-theme="ocean"]{--purple:#087b70;--green:#168b70;--pale:#f4f8f7;--ink:#20323b}
-body[data-theme="lavender"]{--purple:#7064ca;--green:#378d79;--pale:#f7f6fb;--ink:#292a3a}
-body[data-theme="night"]{--purple:#5ac7ad;--green:#55c9a5;--pale:#101b23;--paper:#182630;--ink:#edf5f5;--muted:#a2b2b5;--line:#2b3b44;--shadow:0 12px 36px #050b1070;background:var(--pale);color:var(--ink)}
+body[data-theme="ocean"]{--purple:#285fa8;--green:#16866f;--pale:#f3f7fc;--ink:#23364b;--muted:#63758b}
+body[data-theme="lavender"]{--purple:#3978c5;--green:#278472;--pale:#f1f6fc;--ink:#23364b;--muted:#63758b}
+body[data-theme="night"]{--purple:#72b5f3;--green:#55c9a5;--pale:#101b23;--paper:#182630;--ink:#edf5f5;--muted:#a2b2b5;--line:#2b3b44;--shadow:0 12px 36px #050b1070;background:var(--pale);color:var(--ink)}
 body[data-theme="night"] .sidebar,body[data-theme="night"] .card,body[data-theme="night"] .iconbtn,body[data-theme="night"] .settings-menu,body[data-theme="night"] .modal,body[data-theme="night"] .filters input,body[data-theme="night"] .filters select,body[data-theme="night"] .monthpick,body[data-theme="night"] .field input,body[data-theme="night"] .field select,body[data-theme="night"] .field textarea{background:#182630;color:var(--ink);border-color:var(--line)}
 body[data-theme="night"] .nav button{color:#aababc}
 body[data-theme="night"] .nav button.active{background:#213c42;color:#8ae2c9}
@@ -127,8 +127,8 @@ body[data-theme="night"] .mobile-category.tone-calm,body[data-theme="night"] .mo
 .theme-options button b{margin-left:auto;color:var(--purple);opacity:0}
 .theme-options button.selected b{opacity:1}
 .theme-swatch{width:24px;height:24px;border-radius:8px;border:1px solid #00000010}
-.ocean-swatch{background:linear-gradient(135deg,#087b70 50%,#4e9bd1 50%)}
-.lavender-swatch{background:linear-gradient(135deg,#7064ca 50%,#afa6ed 50%)}
+.ocean-swatch{background:linear-gradient(135deg,#285fa8 50%,#16866f 50%)}
+.lavender-swatch{background:linear-gradient(135deg,#3978c5 50%,#a9cdf3 50%)}
 .night-swatch{background:linear-gradient(135deg,#101b23 50%,#5ac7ad 50%)}
 .settings-logout{display:flex;align-items:center;gap:9px;width:100%;padding:11px 10px;border:0;border-top:1px solid var(--line);background:transparent;color:#bd525b;text-align:left;font-weight:700;font-size:13px}
 .settings-logout:hover{background:#fff2f1;border-radius:10px}
@@ -145,3 +145,34 @@ button:not(.nav button):not(.theme-options button):not(.settings-logout){transit
   .nav button.active{outline-offset:0;border-radius:12px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--purple) 22%,white),0 3px 10px #14232b12}
   body[data-theme="night"] .nav button.active{background:#213c42;color:#8ae2c9}
 }
+
+/* High-contrast blue branding and readable sign-in states for every theme. */
+:root{--ink:#23364b;--muted:#63758b;--purple:#285fa8;--pale:#f3f7fc;--line:#dfe7f0}
+.auth{background:var(--pale)}
+.auth-art{background:linear-gradient(145deg,#17365f 0%,#285fa8 58%,#477db8 100%)}
+.auth-art p{color:#eaf3ff}
+.auth-main{background:var(--paper)}
+.auth-box h2,.auth-box .brand span:last-child{color:var(--ink)}
+.auth-box>p{color:var(--muted)}
+.auth-box .field label{color:#34485e}
+.tabs{background:#eaf0f7}
+.tabs button{color:#53657a}
+.tabs button.active{background:#fff;color:#245c9f;box-shadow:0 2px 8px #1b477018}
+.field input,.field select,.field textarea{border-color:#d8e1ec;background:#fff;color:#203247}
+.field input::placeholder,.field textarea::placeholder{color:#75869a;opacity:1}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#4a82c0;box-shadow:0 0 0 3px #285fa81c}
+.btn{background:#285fa8}
+.btn.light{background:#eaf1f9;color:#245c9f}
+.nav button.active{background:#eaf1f9;color:#245c9f}
+.badge{background:#e8f0f9;color:#28558c}
+body[data-theme="night"] .auth{background:#101b23}
+body[data-theme="night"] .auth-main{background:#101b23}
+body[data-theme="night"] .auth-box h2,body[data-theme="night"] .auth-box .brand span:last-child{color:#f2f6fa}
+body[data-theme="night"] .auth-box>p{color:#b5c3cc}
+body[data-theme="night"] .auth-box .field label{color:#d7e1e8}
+body[data-theme="night"] .tabs{background:#1d2b35}
+body[data-theme="night"] .tabs button{color:#c4d1da}
+body[data-theme="night"] .tabs button.active{background:#2a3c49;color:#91c7ff;box-shadow:none}
+body[data-theme="night"] .field input,body[data-theme="night"] .field select,body[data-theme="night"] .field textarea{background:#182630;color:#f2f6fa;border-color:#3a4d5b}
+body[data-theme="night"] .field input::placeholder,body[data-theme="night"] .field textarea::placeholder{color:#a7b6c0}
+body[data-theme="night"] .auth-art{background:linear-gradient(145deg,#10243f 0%,#1e4b7e 58%,#2865a1 100%)}
