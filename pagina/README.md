@@ -4,7 +4,7 @@ Aplicación web responsive para registrar ingresos y gastos, administrar categor
 
 ## Requisitos
 
-- Node.js 22 o posterior (usa el módulo integrado `node:sqlite`).
+- Node.js 22 o posterior (utiliza el módulo integrado `node:sqlite`).
 - npm.
 
 ## Ejecutar localmente
@@ -15,21 +15,19 @@ cp .env.example .env
 npm start
 ```
 
-Abre <http://localhost:3000>. Crea una cuenta desde la pantalla inicial. El servidor genera automáticamente `data/fincontrol.sqlite` al iniciar.
+Abre <http://localhost:3000> y crea una cuenta desde la pantalla inicial. El servidor crea `data/fincontrol.sqlite` al iniciar.
 
-También puedes abrir `Iniciar FinControl.command` en macOS después de instalar las dependencias.
+En macOS, también puedes abrir `Iniciar FinControl.command` después de instalar las dependencias.
 
-## Datos y configuración
+## Datos y seguridad
 
 - La aplicación usa SQLite; no necesita MySQL.
-- La base de datos y el archivo `.env` son locales y están excluidos de Git.
-- Cambia `JWT_SECRET` en `.env` por un secreto largo y privado antes de exponer la aplicación públicamente.
-- Para conservar los datos, realiza una copia de seguridad de `data/fincontrol.sqlite`.
+- La base de datos y el archivo `.env` se guardan localmente y están excluidos de Git.
+- Antes de exponer la aplicación públicamente, cambia `JWT_SECRET` en `.env` por un secreto largo y privado.
+- Para conservar los datos, haz una copia de seguridad de `data/fincontrol.sqlite`.
 
 ## Estructura
 
-- `server.js`: API, autenticación y acceso a SQLite.
-- `public/`: interfaz responsive y lógica del cliente.
-- `data/`: base de datos creada localmente al ejecutar el servidor.
-
-La aplicación permite registrar cuentas, movimientos, categorías, presupuestos, alertas por límites, reportes PDF/Excel y metas de ahorro.
+- `server.js`: API, autenticación, reglas y exportación PDF/Excel.
+- `public/`: interfaz responsive y lógica de pantallas.
+- `data/`: base local generada cuando inicia el servidor.
