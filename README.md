@@ -2,7 +2,7 @@
 
 Aplicación web responsive de control de gastos e ingresos basada en las historias HU001–HU010 de la wiki. Incluye registro e inicio de sesión, categorías, movimientos, presupuestos mensuales, alertas al 80 % y 100 %, reportes, exportación PDF/Excel y metas de ahorro.
 
-## Inicio rápido (macOS)
+## Inicio para (macOS)
 
 1. Abre la carpeta en Visual Studio Code.
 2. Abre Terminal → Nueva terminal. Ejecuta `npm install` una sola vez.
