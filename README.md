@@ -14,12 +14,16 @@ No requiere MySQL ni configurar una base de datos externa. Para iniciar manualme
 
 Consulta la guía paso a paso en [ACCESO_DESDE_INTERNET.md](ACCESO_DESDE_INTERNET.md). Usa un túnel de Cloudflare para acceder temporalmente sin configurar el router. El Mac debe permanecer encendido y con el servidor y el túnel activos.
 
+## Publicar FinControl en una URL permanente
+
+Para que la página funcione sin dejar tu Mac encendido, sigue [DESPLIEGUE_RENDER.md](DESPLIEGUE_RENDER.md). La configuración de [`render.yaml`](render.yaml) incluye almacenamiento persistente para SQLite; crear el servicio permanente requiere un plan de hosting de pago. La base de datos local no se transfiere automáticamente.
+
 ## Datos y seguridad
 
 - La base local se guarda en `data/fincontrol.sqlite`. Conserva ese archivo para mantener tus cuentas y movimientos; cópialo para hacer una copia de seguridad.
 - `server.js` crea y actualiza las tablas al iniciar.
 - Cada usuario solo consulta y modifica sus propios datos; las contraseñas se guardan con hash.
-- En producción, configura HTTPS y un secreto JWT fuerte.
+- En producción, usa HTTPS y un secreto JWT fuerte. El despliegue Render genera `JWT_SECRET` automáticamente.
 
 ## Estructura
 
