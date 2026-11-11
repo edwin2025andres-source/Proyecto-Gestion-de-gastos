@@ -12,8 +12,8 @@ FinControl usa SQLite en Docker local y PostgreSQL en la web. La opción gratis 
 1. Verifica tu cuenta de Render.
 2. En Render, crea un Blueprint desde el repositorio `edwin2025andres-source/Proyecto-Gestion-de-gastos`.
 3. Al sincronizar el Blueprint, proporciona el `DATABASE_URL` de Neon cuando Render lo solicite.
-4. Render genera `JWT_SECRET` y `BACKUP_TOKEN`. Espera el estado **Live** y abre la URL `*.onrender.com`.
-5. Confirma que `/api/health` responda con `PostgreSQL conectada`.
+4. Render genera `JWT_SECRET` y `BACKUP_TOKEN`. Espera el estado **Live** y abre [https://fincontrol-i46e.onrender.com](https://fincontrol-i46e.onrender.com).
+5. Confirma que `/api/health` responda con `PostgreSQL conectada`. El servicio actual ya devolvió `{"status":"ok","database":"PostgreSQL conectada"}`.
 
 La app crea sus tablas al iniciar. La base alojada vive en Neon y sobrevive a reinicios del servicio web. Render Free duerme tras 15 minutos sin tráfico y su primer acceso después puede tardar cerca de un minuto. Render y Neon imponen cuotas en sus planes gratuitos; revisa sus límites vigentes antes de publicar.
 

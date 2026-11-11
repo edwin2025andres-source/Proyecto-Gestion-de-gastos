@@ -16,7 +16,7 @@ Ayudar a organizar ingresos, gastos, presupuestos y metas de ahorro en una aplic
 
 ## Ejecución y publicación
 
-Desarrollo: Node.js 22.5+, `npm ci`, `npm start`. Docker: configura `.env` desde `.env.example` y ejecuta `docker compose up -d --build`. Publicación gratis: crea una base Neon PostgreSQL, configura su `DATABASE_URL` en el Blueprint Render y abre la URL HTTPS asignada.
+Desarrollo: Node.js 22.5+, `npm ci`, `npm start`. Docker: configura `.env` desde `.env.example` y ejecuta `docker compose up -d --build`. Despliegue público gratuito activo: [https://fincontrol-i46e.onrender.com](https://fincontrol-i46e.onrender.com). `GET /api/health` confirma conexión a Neon PostgreSQL.
 
 Render Free puede dormir por inactividad y tiene cuotas mensuales; Neon Free aplica límites de cómputo y almacenamiento. Revisa las condiciones vigentes de ambos proveedores.
 

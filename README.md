@@ -23,6 +23,10 @@ El Blueprint `render.yaml` configura el servicio web gratis de Render y usa Neon
 
 La base Neon gratuita conserva los datos, pero tiene cuotas de uso. Render Free duerme el servicio tras 15 minutos sin tráfico; el primer acceso posterior puede tardar cerca de un minuto. Revisa las cuotas gratuitas actuales de [Render](https://render.com/docs/free) y [Neon](https://neon.com/pricing). Render no debe usar SQLite local en este despliegue porque su sistema de archivos se borra al dormir o redeplegar.
 
+### Sitio publicado
+
+FinControl está desplegado en [https://fincontrol-i46e.onrender.com](https://fincontrol-i46e.onrender.com). La comprobación `GET /api/health` respondió `{"status":"ok","database":"PostgreSQL conectada"}`.
+
 ## Descargar la base de datos
 
 `GET /api/backup` requiere `BACKUP_TOKEN` como Bearer token enviado en el encabezado Authorization. Con PostgreSQL crea una exportación JSON consistente con todas las tablas; con SQLite descarga un archivo `.sqlite` consistente. La clave nunca va en la URL.
@@ -31,7 +35,7 @@ La base Neon gratuita conserva los datos, pero tiene cuotas de uso. Render Free 
 export BACKUP_TOKEN='tu-token-de-respaldo'
 curl --fail --show-error \
   -H "Authorization: Bearer $BACKUP_TOKEN" \
-  "https://TU-SERVICIO.onrender.com/api/backup" \
+  "https://fincontrol-i46e.onrender.com/api/backup" \
   --output fincontrol-backup.json
 ```
 

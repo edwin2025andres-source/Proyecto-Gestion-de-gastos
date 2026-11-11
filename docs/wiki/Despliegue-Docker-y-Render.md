@@ -19,7 +19,9 @@ Docker usa SQLite en `/app/data`, guardada en el volumen `fincontrol_data`. `doc
 1. Crea un proyecto PostgreSQL gratuito en [Neon](https://neon.com/) y copia su cadena de conexión `DATABASE_URL`.
 2. Verifica la cuenta de Render y crea un Blueprint desde este repositorio.
 3. Pega `DATABASE_URL` cuando Render solicite el valor. El Blueprint genera `JWT_SECRET` y `BACKUP_TOKEN` automáticamente.
-4. Espera el despliegue y abre la URL `*.onrender.com` asignada.
+4. Espera el despliegue y abre [https://fincontrol-i46e.onrender.com](https://fincontrol-i46e.onrender.com).
+
+El despliegue actual está activo. `GET /api/health` confirmó `{"status":"ok","database":"PostgreSQL conectada"}`.
 
 Con `DATABASE_URL` presente, la aplicación usa PostgreSQL remoto. Render Free tiene almacenamiento de archivos efímero, así que no aloja la SQLite local. El servicio puede dormir tras 15 minutos sin tráfico y tardar cerca de un minuto en responder al primer acceso al despertar. Neon Free mantiene la base dentro de sus cuotas de cómputo y almacenamiento. Consulta las condiciones actuales en [Render](https://render.com/docs/free) y [Neon](https://neon.com/pricing).
 
@@ -31,7 +33,7 @@ Con `DATABASE_URL` presente, la aplicación usa PostgreSQL remoto. Render Free t
 export BACKUP_TOKEN='tu-token-de-respaldo'
 curl --fail --show-error \
   -H "Authorization: Bearer $BACKUP_TOKEN" \
-  "https://TU-SERVICIO.onrender.com/api/backup" \
+  "https://fincontrol-i46e.onrender.com/api/backup" \
   --output fincontrol-backup.json
 ```
 
