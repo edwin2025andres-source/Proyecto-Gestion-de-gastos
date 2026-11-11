@@ -1,61 +1,58 @@
 # FinControl
 
-Aplicación web responsive para controlar ingresos y gastos. Permite crear categorías, registrar movimientos, definir presupuestos mensuales, recibir alertas al 80 % y 100 %, fijar metas de ahorro y descargar reportes PDF y Excel. Los usuarios y sus datos se guardan en SQLite.
+Aplicación web responsive para controlar ingresos y gastos. Permite gestionar categorías, movimientos, presupuestos mensuales, alertas al 80 % y 100 %, metas de ahorro y reportes PDF/Excel. Admite SQLite para Docker local y PostgreSQL para el despliegue alojado.
 
 ## Ejecutar con Docker
 
-Requiere Docker Desktop (o Docker Engine) con Docker Compose v2. Copia `.env.example` como `.env` y sustituye los dos secretos por valores aleatorios largos. Luego ejecuta:
+Requiere Docker Desktop (o Docker Engine) con Compose v2. Copia `.env.example` a `.env` y configura secretos aleatorios distintos en `JWT_SECRET` y `BACKUP_TOKEN`. Después inicia la aplicación:
 
 ```sh
 docker compose up -d --build
 ```
 
-En el equipo donde corre Docker, abre `http://localhost:3000`. El volumen `fincontrol_data` conserva la base aunque se reinicie o recree el contenedor. `docker compose down` también conserva el volumen; `docker compose down -v` lo borra.
+Abre `http://localhost:3000` en el equipo donde corre Docker. SQLite se guarda en el volumen Docker `fincontrol_data`, que sobrevive a reinicios y recreaciones del contenedor. `docker compose down` conserva la base; `docker compose down -v` la elimina.
 
-## URL pública permanente
+## Publicar gratis en Internet
 
-Docker empaqueta y ejecuta la aplicación; una URL pública requiere alojar el contenedor en un servidor accesible desde Internet. Este repositorio incluye [`render.yaml`](render.yaml) para desplegar en Render con el Dockerfile, disco persistente en `/app/data`, HTTPS y variables secretas generadas por el proveedor:
+El Blueprint `render.yaml` configura el servicio web gratis de Render y usa Neon Free como base PostgreSQL persistente. La variable `DATABASE_URL` conecta Render con Neon; cuando está configurada, el servidor usa PostgreSQL en lugar de crear SQLite en el disco efímero.
 
-1. Publica estos cambios en GitHub.
-2. En Render, crea un Blueprint desde este repositorio y confirma el servicio `fincontrol`.
-3. Espera a que termine el despliegue y abre la URL `*.onrender.com` asignada al servicio.
+1. Crea una base PostgreSQL en el plan Free de [Neon](https://neon.com/) y copia su URL de conexión `DATABASE_URL`.
+2. Verifica tu cuenta de Render y crea un Blueprint desde este repositorio.
+3. Cuando Render solicite `DATABASE_URL`, pega la URL de Neon. Render generará `JWT_SECRET` y `BACKUP_TOKEN`.
+4. Espera el despliegue y abre la URL `*.onrender.com` que Render asigne.
 
-El servicio requiere un plan que admita disco persistente. Render es una opción de hosting; la URL pública no se crea al ejecutar Docker en el computador local. Consulta la [Wiki del proyecto](https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos/wiki) para la guía completa.
+La base Neon gratuita conserva los datos, pero tiene cuotas de uso. Render Free duerme el servicio tras 15 minutos sin tráfico; el primer acceso posterior puede tardar cerca de un minuto. Revisa las cuotas gratuitas actuales de [Render](https://render.com/docs/free) y [Neon](https://neon.com/pricing). Render no debe usar SQLite local en este despliegue porque su sistema de archivos se borra al dormir o redeplegar.
 
-## Base de datos y respaldos
+## Descargar la base de datos
 
-- La aplicación crea `data/fincontrol.sqlite` automáticamente al iniciar.
-- Con Compose, ese archivo está dentro del volumen `fincontrol_data`, fuera del ciclo de vida del contenedor.
-- `GET /api/health` informa si la API y SQLite responden.
-- La descarga `GET /api/backup` requiere `BACKUP_TOKEN` como Bearer token. Genera una copia SQLite consistente con `VACUUM INTO`, aun si hay actividad en la aplicación. No se publican usuarios ni datos de respaldo en el repositorio.
-
-Descarga desde una terminal, reemplazando la URL y proporcionando la clave configurada:
+`GET /api/backup` requiere `BACKUP_TOKEN` como Bearer token enviado en el encabezado Authorization. Con PostgreSQL crea una exportación JSON consistente con todas las tablas; con SQLite descarga un archivo `.sqlite` consistente. La clave nunca va en la URL.
 
 ```sh
 export BACKUP_TOKEN='tu-token-de-respaldo'
 curl --fail --show-error \
   -H "Authorization: Bearer $BACKUP_TOKEN" \
   "https://TU-SERVICIO.onrender.com/api/backup" \
-  --output fincontrol.sqlite
+  --output fincontrol-backup.json
 ```
 
-Para Compose, cambia la URL por `http://localhost:3000/api/backup`. Guarda el archivo descargado en un lugar seguro. Para restaurar, detén la aplicación, reemplaza `data/fincontrol.sqlite` (o el archivo del disco persistente del proveedor) con la copia y vuelve a iniciarla. La guía de la Wiki cubre los pasos de cada plataforma.
+Para Docker local, cambia la URL por `http://localhost:3000/api/backup`. Guarda la descarga en un lugar privado; contiene datos financieros y hashes de contraseña.
 
 ## Desarrollo sin Docker
 
-Requiere Node.js 22.5 o posterior. Ejecuta `npm ci` y `npm start`, y abre `http://localhost:3000`. `npm run dev` reinicia el servidor al detectar cambios. Los comandos de macOS existentes también están disponibles en [`Iniciar FinControl.command`](Iniciar%20FinControl.command).
+Requiere Node.js 22.5 o posterior. Ejecuta `npm ci` y `npm start`; la aplicación usa `data/fincontrol.sqlite` si `DATABASE_URL` no está definida. `npm run dev` reinicia el servidor al detectar cambios.
 
-## Seguridad y configuración
+## Seguridad
 
-- `JWT_SECRET` firma sesiones de siete días; el servidor se niega a iniciar en producción si falta.
-- `BACKUP_TOKEN` protege la descarga de la base completa. Mantén ambos secretos fuera de Git y usa HTTPS en producción.
-- Cada usuario solo accede a sus datos mediante la API autenticada; las contraseñas se guardan con bcrypt.
-- No uses `docker compose down -v` salvo que quieras borrar permanentemente la base de datos.
+- En producción, `JWT_SECRET` es obligatorio; Render lo genera automáticamente.
+- `BACKUP_TOKEN` protege la exportación completa de la base.
+- Las contraseñas se guardan con bcrypt y las rutas privadas filtran datos por usuario autenticado.
+- No guardes `.env`, `DATABASE_URL` ni exportaciones de la base en Git.
 
 ## Estructura
 
-- `server.js`: API Express, autenticación, persistencia SQLite, exportaciones y respaldo.
-- `public/`: interfaz, estilos y lógica de pantallas.
-- `Dockerfile`, `compose.yaml`: imagen y despliegue Docker.
-- `render.yaml`: Blueprint del servicio público de Render y su disco persistente.
-- `docs/`: documentación de proyecto.
+- `server.js`: API Express, autenticación, lógica financiera y exportaciones.
+- `database.js`: adaptador PostgreSQL/SQLite, esquema y consultas.
+- `public/`: interfaz y estilos.
+- `Dockerfile`, `compose.yaml`: imagen y entorno Docker local.
+- `render.yaml`: servicio gratuito de Render conectado a PostgreSQL externo.
+- `docs/`: documentación del proyecto.

@@ -1,6 +1,6 @@
 # FinControl
 
-FinControl es una aplicación web responsive para administrar finanzas personales. La API y la interfaz se empaquetan en un contenedor Docker; SQLite conserva los usuarios, categorías, movimientos, presupuestos, alertas y metas.
+FinControl es una aplicación web responsive para administrar finanzas personales. La API y la interfaz se empaquetan en Docker; SQLite se usa localmente y PostgreSQL en el alojamiento web gratuito.
 
 ## Funciones
 
@@ -10,6 +10,7 @@ FinControl es una aplicación web responsive para administrar finanzas personale
 - Metas de ahorro y aportes asociados a movimientos.
 - Descarga de reportes de movimientos en PDF y Excel.
 - Descarga protegida de una copia consistente de SQLite.
+- Conexión PostgreSQL alojada y respaldo JSON descargable.
 
 ## Páginas de la Wiki
 
