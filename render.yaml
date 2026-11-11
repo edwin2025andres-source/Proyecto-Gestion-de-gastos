@@ -1,19 +1,20 @@
 services:
   - type: web
     name: fincontrol
-    runtime: node
-    plan: 0.5c-512mb
+    runtime: docker
     region: virginia
-    buildCommand: npm ci
-    startCommand: npm start
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: /api/health
     numInstances: 1
     disk:
       name: fincontrol-sqlite
-      mountPath: /opt/render/project/src/data
+      mountPath: /app/data
       sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
+        generateValue: true
+      - key: BACKUP_TOKEN
         generateValue: true
