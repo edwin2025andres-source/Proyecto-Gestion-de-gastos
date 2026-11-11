@@ -2,6 +2,7 @@ services:
   - type: web
     name: fincontrol
     runtime: docker
+    plan: 0.5c-512mb
     region: virginia
     dockerfilePath: ./Dockerfile
     dockerContext: .
