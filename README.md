@@ -72,7 +72,7 @@ En Windows PowerShell configura la variable de sesión con `$env:BACKUP_TOKEN='t
 
 Consulta los pasos completos en [DESPLIEGUE_RENDER.md](DESPLIEGUE_RENDER.md) y la [Wiki de GitHub](https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos/wiki).
 
-La [presentación final](Entregables%20Finales/FinControl_Entrega_Final.pptx) resume el producto, la arquitectura, las pruebas y los retos. El [cronograma está en GitHub Projects](https://github.com/users/edwin2025andres-source/projects/1).
+La [presentación final](Entregables%20Finales/FinControl_Entrega_Final.pptx) resume el producto, la arquitectura, las pruebas y los retos. Consulta el [cronograma de entrega](docs/CRONOGRAMA_ENTREGA.md) y su [registro en GitHub Issues](https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos/issues/1). El tablero solicitado está en [GitHub Projects](https://github.com/users/edwin2025andres-source/projects/1); agregar elementos al tablero requiere el permiso `project` de GitHub, que la credencial disponible no concede.
 
 ## Seguridad
 
