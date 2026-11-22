@@ -2,7 +2,7 @@
 
 FinControl permite registrar ingresos y gastos, organizar categorías, definir presupuestos, recibir alertas, seguir metas de ahorro y generar reportes. Usa SQLite en Docker local y PostgreSQL cuando se publica en Render.
 
-La interfaz también muestra las alertas nuevas en una ventana emergente y desplaza el indicador azul al cambiar de sección.
+La interfaz también muestra las alertas nuevas en una ventana emergente, desplaza el indicador azul al cambiar de sección y confirma la identidad actual al recuperar la sesión para evitar conservar el nombre de otra cuenta. La sección **Pruebas** resume los casos de inicio de sesión, metas, presupuestos y cambio de cuenta.
 
 ## Abrir la aplicación publicada
 
