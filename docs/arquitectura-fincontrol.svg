@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500">
+<defs>
+ <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2C659A"/></marker>
+ <style>
+  text{font-family:Arial,Helvetica,sans-serif;fill:#1D2C3D}
+  .card{stroke:#CDD8E1;stroke-width:2}
+  .title{font-size:25px;font-weight:700}
+  .body{font-size:18px;fill:#56687A}
+  .small{font-size:16px;fill:#56687A}
+  .link{fill:none;stroke:#2C659A;stroke-width:3;marker-end:url(#arrow)}
+ </style>
+</defs>
+<rect x="8" y="8" width="1184" height="484" rx="22" fill="#FFFFFF" stroke="#E0E7ED" stroke-width="2"/>
+<!-- Main production route from the repository architecture diagram -->
+<rect class="card" x="38" y="58" width="210" height="138" rx="18" fill="#E8F1F8"/>
+<text class="title" x="143" y="105" text-anchor="middle">Persona usuaria</text>
+<text class="body" x="143" y="143" text-anchor="middle">Navegador · HTTPS</text>
+<path class="link" d="M248 127 H330"/>
+<rect class="card" x="332" y="40" width="360" height="174" rx="18" fill="#F7FAFC"/>
+<text class="title" x="512" y="83" text-anchor="middle">Render Free</text>
+<text class="body" x="512" y="119" text-anchor="middle">FinControl Web</text>
+<text class="body" x="512" y="151" text-anchor="middle">Interfaz · Express API · Node.js</text>
+<text class="small" x="512" y="181" text-anchor="middle">Autenticación y rutas privadas</text>
+<path class="link" d="M692 127 H778"/>
+<text class="small" x="870" y="235" text-anchor="middle">DATABASE_URL</text>
+<rect class="card" x="780" y="58" width="180" height="138" rx="18" fill="#F4E9D5"/>
+<text class="title" x="870" y="105" text-anchor="middle">database.js</text>
+<text class="body" x="870" y="143" text-anchor="middle">Adaptador SQL</text>
+<path class="link" d="M960 127 H1000"/>
+<rect class="card" x="1002" y="58" width="160" height="138" rx="18" fill="#DFF2EC"/>
+<text class="title" x="1082" y="105" text-anchor="middle">Neon</text>
+<text class="body" x="1082" y="137" text-anchor="middle">PostgreSQL</text>
+<text class="small" x="1082" y="165" text-anchor="middle">Datos persistentes</text>
+<!-- API capabilities represented below the deployed service -->
+<path d="M512 214 V246 H212 V276 M512 246 V276 M512 246 H812 V276" fill="none" stroke="#2C659A" stroke-width="3"/>
+<path class="link" d="M212 246 V274"/>
+<path class="link" d="M512 246 V274"/>
+<path class="link" d="M812 246 V274"/>
+<rect class="card" x="62" y="276" width="300" height="122" rx="18" fill="#E8F1F8"/>
+<text class="title" x="212" y="321" text-anchor="middle">Acceso protegido</text>
+<text class="body" x="212" y="356" text-anchor="middle">JWT · bcrypt · datos por usuario</text>
+<rect class="card" x="362" y="276" width="300" height="122" rx="18" fill="#FFFFFF"/>
+<text class="title" x="512" y="321" text-anchor="middle">Consultas y reportes</text>
+<text class="body" x="512" y="356" text-anchor="middle">Finanzas · PDF · Excel</text>
+<rect class="card" x="662" y="276" width="300" height="122" rx="18" fill="#F4E9D5"/>
+<text class="title" x="812" y="321" text-anchor="middle">Respaldo protegido</text>
+<text class="body" x="812" y="356" text-anchor="middle">GET /api/backup</text>
+<!-- Validation environment from docs/ARQUITECTURA.md; isolated temp DB -->
+<path d="M512 398 V425" class="link"/>
+<rect x="332" y="427" width="360" height="48" rx="14" fill="#F5F7F9" stroke="#CDD8E1" stroke-width="2" stroke-dasharray="7 6"/>
+<text class="body" x="512" y="458" text-anchor="middle">Pruebas: node:test · SQLite temporal</text>
+</svg>

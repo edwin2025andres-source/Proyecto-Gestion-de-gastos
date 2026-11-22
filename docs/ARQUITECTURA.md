@@ -17,6 +17,10 @@ flowchart LR
   T[Pruebas de integración\nnode:test + SQLite temporal] --> S
 ```
 
+![Diagrama de arquitectura de FinControl](arquitectura-fincontrol.png)
+
+La imagen resume el flujo de producción descrito arriba. El archivo editable en SVG está en [arquitectura-fincontrol.svg](arquitectura-fincontrol.svg).
+
 ## Componentes
 
 - `public/`: interfaz adaptable para escritorio y móvil.
