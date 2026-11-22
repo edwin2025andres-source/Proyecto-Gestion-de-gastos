@@ -10,7 +10,7 @@
 1. Copia `.env.example` a `.env`.
 2. Reemplaza `JWT_SECRET` y `BACKUP_TOKEN` por valores aleatorios diferentes.
 3. Ejecuta `docker compose up -d --build`.
-4. Abre `http://localhost:3000`; el chequeo es `/api/health`.
+4. El chequeo Docker es `/api/health`. Para usar el producto publicado, abre [FinControl](https://fincontrol-i46e.onrender.com). La instancia de prueba local responde en `http://127.0.0.1:3000`.
 
 Docker usa SQLite en `/app/data`, guardada en el volumen `fincontrol_data`. `docker compose down` conserva el volumen; `docker compose down -v` lo borra. Deja `DATABASE_URL` vacía para SQLite.
 
@@ -37,7 +37,7 @@ curl --fail --show-error \
   --output fincontrol-backup.json
 ```
 
-En Compose local, usa `http://localhost:3000/api/backup` para guardar `fincontrol.sqlite`. Los respaldos contienen datos personales y hashes de contraseñas: mantenlos fuera de GitHub.
+En Compose local, usa `http://127.0.0.1:3000/api/backup` para guardar `fincontrol.sqlite`. Los respaldos contienen datos personales y hashes de contraseñas: mantenlos fuera de GitHub.
 
 ## Límites y operación
 

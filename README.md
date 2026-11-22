@@ -38,13 +38,13 @@ Abre [Neon Console](https://console.neon.tech/) e inicia sesión con la cuenta q
    docker compose up -d --build
    ```
 
-5. Abre [http://localhost:3000](http://localhost:3000). Crea una cuenta para empezar. Confirma que el contenedor esté activo con `docker compose ps`.
+5. Confirma que el contenedor esté activo con `docker compose ps`. Para usar la aplicación publicada, abre [FinControl](https://fincontrol-i46e.onrender.com) y crea una cuenta. Si solo estás comprobando la instancia Docker de este computador, abre `http://127.0.0.1:3000`.
 
 La base SQLite local vive en el volumen Docker `fincontrol_data`. `docker compose down` detiene la aplicación y conserva la base; `docker compose down -v` también borra el volumen y sus datos.
 
 ### Ejecutar sin Docker
 
-Instala Node.js 22.5 o posterior, copia y configura `.env`, y ejecuta `npm ci` seguido de `npm start`. Abre `http://localhost:3000`. La aplicación guarda SQLite en `data/fincontrol.sqlite`. Para desarrollo con reinicio automático, usa `npm run dev`.
+Instala Node.js 22.5 o posterior, copia y configura `.env`, y ejecuta `npm ci` seguido de `npm start`. La instancia de desarrollo responde en `http://127.0.0.1:3000`; la aplicación pública está en [FinControl](https://fincontrol-i46e.onrender.com). La aplicación local guarda SQLite en `data/fincontrol.sqlite`. Para desarrollo con reinicio automático, usa `npm run dev`.
 
 ## Pruebas
 

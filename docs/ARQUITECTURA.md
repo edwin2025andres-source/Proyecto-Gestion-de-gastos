@@ -5,7 +5,7 @@ El navegador sirve la interfaz desde Express y consume la API JSON. Express vali
 ```mermaid
 flowchart LR
   U[Persona usuaria] -->|HTTPS| W[Render Free\nFinControl Web]
-  U -->|localhost:3000| D[Docker Compose\nFinControl]
+  U -->|127.0.0.1:3000, prueba local| D[Docker Compose\nFinControl]
   W --> S[Express API + archivos web]
   D --> S
   S --> A[JWT + bcrypt\nAutenticación y aislamiento por usuario]

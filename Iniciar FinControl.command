@@ -1,5 +1,3 @@
 #!/bin/bash
-cd "$(dirname "$0")"
-echo "Abriendo FinControl en el navegador..."
-open http://localhost:3000
-npm start
+echo "Abriendo FinControl publicada..."
+open https://fincontrol-i46e.onrender.com
