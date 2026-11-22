@@ -19,3 +19,10 @@ FinControl es una aplicación web responsive para administrar finanzas personale
 - [Estado general del proyecto](Estado-del-proyecto)
 
 Para comenzar en local, consulta el [README](https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos#readme).
+
+## Entrega final
+
+- [Arquitectura del software](Arquitectura-y-datos) y [diagrama detallado](https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos/blob/main/docs/ARQUITECTURA.md).
+- [Casos de prueba](https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos/blob/main/docs/PRUEBAS.md).
+- [Presentación final](https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos/tree/main/Entregables%20Finales).
+- [Cronograma del proyecto en Projects](https://github.com/users/edwin2025andres-source/projects/1) (no se administra en esta Wiki).

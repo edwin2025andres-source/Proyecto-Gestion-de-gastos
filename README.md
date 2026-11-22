@@ -1,62 +1,81 @@
 # FinControl
 
-Aplicación web responsive para controlar ingresos y gastos. Permite gestionar categorías, movimientos, presupuestos mensuales, alertas al 80 % y 100 %, metas de ahorro y reportes PDF/Excel. Admite SQLite para Docker local y PostgreSQL para el despliegue alojado.
+FinControl permite registrar ingresos y gastos, organizar categorías, definir presupuestos, recibir alertas, seguir metas de ahorro y generar reportes. Usa SQLite en Docker local y PostgreSQL cuando se publica en Render.
 
-## Ejecutar con Docker
+La interfaz también muestra las alertas nuevas en una ventana emergente y desplaza el indicador azul al cambiar de sección.
 
-Requiere Docker Desktop (o Docker Engine) con Compose v2. Copia `.env.example` a `.env` y configura secretos aleatorios distintos en `JWT_SECRET` y `BACKUP_TOKEN`. Después inicia la aplicación:
+## Abrir la aplicación publicada
+
+Usa [FinControl](https://fincontrol-i46e.onrender.com). Crea una cuenta o inicia sesión. El sitio se conecta a PostgreSQL en Neon. El estado actual puede comprobarse en [GET /api/health](https://fincontrol-i46e.onrender.com/api/health).
+
+El servicio web y la base se configuraron en planes gratuitos. Render puede suspender el servicio después de un período sin uso, por eso el primer acceso puede demorar. Los datos permanecen en Neon mientras el proyecto se mantenga dentro de sus cuotas gratuitas.
+
+### Ver la base de datos
+
+Abre [Neon Console](https://console.neon.tech/) e inicia sesión con la cuenta que creó el proyecto Neon `mi-primer-proyecto`. Entra al proyecto, selecciona la base `neondb` y abre **SQL Editor** para consultar las tablas `users`, `categories`, `movements`, `budgets`, `goals` y `alerts`. La contraseña de conexión vive como secreto en Render y no debe publicarse.
+
+## Instalar en un computador nuevo
+
+### Requisitos
+
+- Docker Desktop instalado y abierto (Windows o macOS), o Docker Engine con Docker Compose v2 (Linux).
+- Git para clonar el repositorio.
+
+### Pasos
+
+1. Clona el proyecto y entra a la carpeta:
+
+   ```sh
+   git clone https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos.git
+   cd Proyecto-Gestion-de-gastos
+   ```
+
+2. Copia el archivo de configuración de ejemplo: `cp .env.example .env` en macOS/Linux o `Copy-Item .env.example .env` en PowerShell.
+3. Abre `.env` y cambia `JWT_SECRET` y `BACKUP_TOKEN` por valores aleatorios largos y diferentes. Deja `DATABASE_URL=` vacía para iniciar una base SQLite local. No subas este archivo a GitHub.
+4. Construye e inicia la aplicación:
+
+   ```sh
+   docker compose up -d --build
+   ```
+
+5. Abre [http://localhost:3000](http://localhost:3000). Crea una cuenta para empezar. Confirma que el contenedor esté activo con `docker compose ps`.
+
+La base SQLite local vive en el volumen Docker `fincontrol_data`. `docker compose down` detiene la aplicación y conserva la base; `docker compose down -v` también borra el volumen y sus datos.
+
+### Ejecutar sin Docker
+
+Instala Node.js 22.5 o posterior, copia y configura `.env`, y ejecuta `npm ci` seguido de `npm start`. Abre `http://localhost:3000`. La aplicación guarda SQLite en `data/fincontrol.sqlite`. Para desarrollo con reinicio automático, usa `npm run dev`.
+
+## Pruebas
+
+Ejecuta `npm test` para iniciar una instancia temporal de SQLite y probar el registro, inicio de sesión, categorías, creación de metas, presupuestos, notificaciones de presupuesto y descarga protegida del respaldo. La base temporal se elimina al terminar. Consulta los casos en [docs/PRUEBAS.md](docs/PRUEBAS.md).
+
+## Arquitectura
+
+La aplicación usa una interfaz web, una API Express y un adaptador de base de datos SQLite/PostgreSQL. El diagrama está en [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md).
+
+## Despliegue y respaldos
+
+El Blueprint `render.yaml` configura Render Free con PostgreSQL persistente en Neon. `DATABASE_URL` conecta el servicio con Neon; Render genera `JWT_SECRET` y `BACKUP_TOKEN`.
+
+La ruta `GET /api/backup` requiere `BACKUP_TOKEN` en el encabezado `Authorization: Bearer`. Para descargar la exportación JSON en producción, copia el valor privado desde Render > servicio FinControl > Environment y ejecuta:
 
 ```sh
-docker compose up -d --build
-```
-
-Abre `http://localhost:3000` en el equipo donde corre Docker. SQLite se guarda en el volumen Docker `fincontrol_data`, que sobrevive a reinicios y recreaciones del contenedor. `docker compose down` conserva la base; `docker compose down -v` la elimina.
-
-## Publicar gratis en Internet
-
-El Blueprint `render.yaml` configura el servicio web gratis de Render y usa Neon Free como base PostgreSQL persistente. La variable `DATABASE_URL` conecta Render con Neon; cuando está configurada, el servidor usa PostgreSQL en lugar de crear SQLite en el disco efímero.
-
-1. Crea una base PostgreSQL en el plan Free de [Neon](https://neon.com/) y copia su URL de conexión `DATABASE_URL`.
-2. Verifica tu cuenta de Render y crea un Blueprint desde este repositorio.
-3. Cuando Render solicite `DATABASE_URL`, pega la URL de Neon. Render generará `JWT_SECRET` y `BACKUP_TOKEN`.
-4. Espera el despliegue y abre la URL `*.onrender.com` que Render asigne.
-
-La base Neon gratuita conserva los datos, pero tiene cuotas de uso. Render Free duerme el servicio tras 15 minutos sin tráfico; el primer acceso posterior puede tardar cerca de un minuto. Revisa las cuotas gratuitas actuales de [Render](https://render.com/docs/free) y [Neon](https://neon.com/pricing). Render no debe usar SQLite local en este despliegue porque su sistema de archivos se borra al dormir o redeplegar.
-
-### Sitio publicado
-
-FinControl está desplegado en [https://fincontrol-i46e.onrender.com](https://fincontrol-i46e.onrender.com). La comprobación `GET /api/health` respondió `{"status":"ok","database":"PostgreSQL conectada"}`.
-
-## Descargar la base de datos
-
-`GET /api/backup` requiere `BACKUP_TOKEN` como Bearer token enviado en el encabezado Authorization. Con PostgreSQL crea una exportación JSON consistente con todas las tablas; con SQLite descarga un archivo `.sqlite` consistente. La clave nunca va en la URL.
-
-```sh
-export BACKUP_TOKEN='tu-token-de-respaldo'
+export BACKUP_TOKEN='tu-token-privado'
 curl --fail --show-error \
   -H "Authorization: Bearer $BACKUP_TOKEN" \
   "https://fincontrol-i46e.onrender.com/api/backup" \
   --output fincontrol-backup.json
 ```
 
-Para Docker local, cambia la URL por `http://localhost:3000/api/backup`. Guarda la descarga en un lugar privado; contiene datos financieros y hashes de contraseña.
+En Windows PowerShell configura la variable de sesión con `$env:BACKUP_TOKEN='tu-token-privado'` y usa `curl.exe` con el mismo encabezado. La copia JSON incluye las tablas de la aplicación; consérvala en un lugar privado, fuera del repositorio. La descarga es manual; no se ejecuta automáticamente.
 
-## Desarrollo sin Docker
+Consulta los pasos completos en [DESPLIEGUE_RENDER.md](DESPLIEGUE_RENDER.md) y la [Wiki de GitHub](https://github.com/edwin2025andres-source/Proyecto-Gestion-de-gastos/wiki).
 
-Requiere Node.js 22.5 o posterior. Ejecuta `npm ci` y `npm start`; la aplicación usa `data/fincontrol.sqlite` si `DATABASE_URL` no está definida. `npm run dev` reinicia el servidor al detectar cambios.
+La [presentación final](Entregables%20Finales/FinControl_Entrega_Final.pptx) resume el producto, la arquitectura, las pruebas y los retos. El [cronograma está en GitHub Projects](https://github.com/users/edwin2025andres-source/projects/1).
 
 ## Seguridad
 
-- En producción, `JWT_SECRET` es obligatorio; Render lo genera automáticamente.
-- `BACKUP_TOKEN` protege la exportación completa de la base.
-- Las contraseñas se guardan con bcrypt y las rutas privadas filtran datos por usuario autenticado.
-- No guardes `.env`, `DATABASE_URL` ni exportaciones de la base en Git.
-
-## Estructura
-
-- `server.js`: API Express, autenticación, lógica financiera y exportaciones.
-- `database.js`: adaptador PostgreSQL/SQLite, esquema y consultas.
-- `public/`: interfaz y estilos.
-- `Dockerfile`, `compose.yaml`: imagen y entorno Docker local.
-- `render.yaml`: servicio gratuito de Render conectado a PostgreSQL externo.
-- `docs/`: documentación del proyecto.
+- No publiques `.env`, `DATABASE_URL`, `JWT_SECRET`, `BACKUP_TOKEN` ni respaldos.
+- Las contraseñas se almacenan con bcrypt y las rutas privadas filtran los datos por cuenta autenticada.
+- El respaldo de producción contiene datos financieros y hashes de contraseña.

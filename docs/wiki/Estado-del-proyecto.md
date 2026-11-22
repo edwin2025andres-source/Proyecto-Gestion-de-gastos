@@ -13,6 +13,9 @@ Ayudar a organizar ingresos, gastos, presupuestos y metas de ahorro en una aplic
 - SQLite local en Docker con volumen persistente.
 - Adaptador PostgreSQL para alojamiento público y respaldo protegido descargable.
 - Blueprint para Render Free conectado a Neon Free.
+- Campana con avisos emergentes para alertas nuevas y navegación con indicador azul animado.
+- Pruebas automatizadas de registro, inicio de sesión, metas, presupuestos, alertas y respaldo (`npm test`).
+- Guía de instalación, arquitectura editable y presentación final en `Entregables Finales/`.
 
 ## Ejecución y publicación
 
@@ -23,3 +26,13 @@ Render Free puede dormir por inactividad y tiene cuotas mensuales; Neon Free apl
 ## Mantenimiento
 
 Guarda respaldos fuera del servicio, rota `JWT_SECRET` y `BACKUP_TOKEN`, y comprueba `/api/health` tras un despliegue. Próximas mejoras: restauración JSON automatizada, migraciones versionadas y respaldos programados.
+
+## Entrega final
+
+- Pruebas automatizadas: 1 suite aprobada, 0 fallos en la revisión local.
+- Arquitectura: [diagrama y descripción](../ARQUITECTURA.md).
+- Casos de prueba: [pruebas automatizadas y guía manual](../PRUEBAS.md).
+- Presentación: `Entregables Finales/FinControl_Entrega_Final.pptx` en el repositorio.
+- Acceso a PostgreSQL: Neon Console → proyecto `mi-primer-proyecto` → base `neondb` → SQL Editor.
+
+El cronograma y sus fechas están en la sección **Projects** del repositorio; no se administra desde esta Wiki.

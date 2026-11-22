@@ -144,6 +144,7 @@ button:not(.nav button):not(.theme-options button):not(.settings-logout){transit
   body[data-theme="night"] .nav button.active{background:#213c42;color:#8ae2c9}
 }
 
+
 /* High-contrast blue branding and readable sign-in states for every theme. */
 :root{--ink:#23364b;--muted:#63758b;--purple:#285fa8;--pale:#f3f7fc;--line:#dfe7f0}
 .auth{background:var(--pale)}
@@ -230,3 +231,16 @@ body[data-theme="night"] .pill.expense{background:#493638}
   body[data-theme="night"] .mobile-income-expense small{color:#b8c7d1}
   body[data-theme="night"] .mobile-add{background:#397cb2;color:#fff;box-shadow:0 8px 18px #10283c80}
 }
+
+/* Notification bell and a blue active-page marker that follows the selected section. */
+.bell-icon{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.notification-count{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border:2px solid var(--paper,#fff);border-radius:99px;background:#d95862;color:white;font:700 10px/13px 'DM Sans',sans-serif;text-align:center}
+.bell-empty{display:grid;place-items:center;margin-bottom:10px;color:var(--purple)}
+.bell-empty .bell-icon{width:34px;height:34px}
+.nav{position:relative;isolation:isolate}
+.nav-indicator{position:absolute;z-index:-1;left:var(--nav-x,0px);top:var(--nav-y,0px);width:var(--nav-w,100%);height:var(--nav-h,42px);border-radius:12px;background:#e6eff9;box-shadow:inset 0 0 0 1px #c8daeb,0 3px 10px #14232b12;pointer-events:none;transition:left .32s cubic-bezier(.22,.8,.24,1),top .32s cubic-bezier(.22,.8,.24,1),width .32s cubic-bezier(.22,.8,.24,1),height .32s cubic-bezier(.22,.8,.24,1)}
+.nav button,.nav button.active{position:relative;z-index:0;background:transparent;outline-color:transparent;box-shadow:none}
+.nav button.active{color:#285f98}
+body[data-theme="night"] .nav-indicator{background:#203b49;box-shadow:inset 0 0 0 1px #426277,0 3px 10px #050b1080}
+body[data-theme="night"] .nav button.active{color:#9adbcf}
+@media(prefers-reduced-motion:reduce){.nav-indicator{transition:none}}

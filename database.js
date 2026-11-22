@@ -62,7 +62,7 @@ async function initDatabase() {
     await postgres.query('SELECT 1');
     return;
   }
-  const dataDir = path.join(__dirname, 'data');
+  const dataDir = process.env.FINCONTROL_DATA_DIR || path.join(__dirname, 'data');
   fs.mkdirSync(dataDir, { recursive: true });
   sqlite = new DatabaseSync(path.join(dataDir, 'fincontrol.sqlite'));
   sqlite.exec('PRAGMA journal_mode = DELETE; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;');

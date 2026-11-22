@@ -7,6 +7,11 @@
 - `database.js`: adapta `node:sqlite` para Docker local y `pg` para PostgreSQL cuando existe `DATABASE_URL`.
 - `Dockerfile` y `compose.yaml`: imagen Docker local y volumen SQLite persistente.
 - `render.yaml`: web service Render Free y configuración de secretos; `DATABASE_URL` se conecta con Neon Free.
+- `test/api.test.js`: integración para inicio de sesión, metas, presupuestos y respaldos.
+
+## Diagrama
+
+Consulta el [diagrama Mermaid completo y los detalles de despliegue](../ARQUITECTURA.md). El navegador accede por HTTPS a Render; Express sirve la interfaz y la API, y se conecta a Neon PostgreSQL. En Docker local, el mismo servicio usa SQLite dentro de un volumen persistente.
 
 ## Modelo de datos
 
@@ -17,6 +22,8 @@ Las tablas principales son `users`, `categories`, `movements`, `budgets`, `goals
 Las rutas privadas validan JWT firmado por `JWT_SECRET`. Contraseñas se almacenan con bcrypt y las consultas filtran por el ID autenticado. `/api/backup` está protegido con `BACKUP_TOKEN`; genera una exportación JSON consistente para PostgreSQL o una copia SQLite local.
 
 Las credenciales, bases y respaldos están excluidos de Git. Usa HTTPS y almacena las copias de seguridad en un lugar privado.
+
+Para consultar las tablas alojadas, abre [Neon Console](https://console.neon.tech/) con la cuenta propietaria → proyecto `mi-primer-proyecto` → base `neondb` → **SQL Editor**. No publiques la URL de conexión ni sus secretos.
 
 ## Persistencia y operación
 
