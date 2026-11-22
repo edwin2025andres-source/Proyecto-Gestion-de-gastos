@@ -244,3 +244,6 @@ body[data-theme="night"] .pill.expense{background:#493638}
 body[data-theme="night"] .nav-indicator{background:#203b49;box-shadow:inset 0 0 0 1px #426277,0 3px 10px #050b1080}
 body[data-theme="night"] .nav button.active{color:#9adbcf}
 @media(prefers-reduced-motion:reduce){.nav-indicator{transition:none}}
+
+/* Vista de pruebas y validación */
+.validation-intro{margin-bottom:18px}.validation-intro>p,.validation-note p{color:var(--muted,#78818c);line-height:1.65}.status-pill,.validation-type{display:inline-flex;align-items:center;border-radius:999px;background:#e8f2fd;color:#2762a1;padding:6px 11px;font-size:12px;font-weight:700}.validation-grid{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.validation-case{padding:20px}.validation-case>div{display:flex;align-items:center;justify-content:space-between}.validation-check{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#e8f5ef;color:#23845b;font-weight:800}.validation-case h3{margin:16px 0 8px;font-size:17px}.validation-case p{color:var(--muted,#78818c);line-height:1.55;font-size:14px}.validation-note{margin-top:18px}.validation-note strong{font-size:16px}

@@ -100,6 +100,18 @@ test('FinControl API: inicio de sesión, metas, presupuestos y avisos', { timeou
     assert.equal(login.status, 200);
     const session = await login.json();
     const auth = { Authorization: `Bearer ${session.token}` };
+    const currentUserResponse = await request('/api/me', { headers: auth });
+    assert.deepEqual(await currentUserResponse.json(), session.user, 'el navegador puede confirmar la identidad actual al restaurar sesión');
+    const secondRegistration = await request('/api/auth/register', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: 'Segunda cuenta', email: 'otra.cuenta@example.com', password: 'Cuenta1234' }),
+    });
+    assert.equal(secondRegistration.status, 201);
+    const secondSession = await secondRegistration.json();
+    const secondMe = await request('/api/me', { headers: { Authorization: `Bearer ${secondSession.token}` } });
+    assert.deepEqual(await secondMe.json(), secondSession.user, 'una sesión nueva debe resolver el nombre de la cuenta actual');
+    const firstMeAfterSecondLogin = await request('/api/me', { headers: auth });
+    assert.deepEqual(await firstMeAfterSecondLogin.json(), session.user, 'cada token conserva la identidad de su cuenta');
     const categoriesResponse = await request('/api/categories', { headers: auth });
     const categories = await categoriesResponse.json();
     assert.equal(categories.length, 9, 'el registro crea las categorías iniciales');
@@ -160,6 +172,10 @@ test('FinControl API: inicio de sesión, metas, presupuestos y avisos', { timeou
     const home = await request('/');
     assert.equal(home.status, 200);
     assert.match(await home.text(), /FinControl/);
+    const appScript = await request('/app.js');
+    const appSource = await appScript.text();
+    assert.match(appSource, /validationPage/, 'la sección de pruebas debe estar publicada en la interfaz');
+    assert.match(appSource, /notificationIcon\(\)/, 'las alertas deben usar el ícono de campana');
   } finally {
     if (server.exitCode === null) {
       server.kill('SIGTERM');
